@@ -7,10 +7,6 @@ ifeq ($(TARGET_BOARD_PLATFORM),msm8084)
 keymaster-def += -D_ION_HEAP_MASK_COMPATIBILITY_WA
 endif
 
-ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
-keymaster-def += -D_ION_HEAP_MASK_COMPATIBILITY_WA
-endif
-
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := keystore.$(TARGET_BOARD_PLATFORM)
@@ -20,7 +16,6 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 LOCAL_SRC_FILES := keymaster_qcom.cpp
 
 LOCAL_C_INCLUDES := $(TARGET_OUT_HEADERS)/common/inc \
-		    $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include \
                     external/openssl/include
 
 LOCAL_CFLAGS := $(keymaster-def)
@@ -31,7 +26,7 @@ LOCAL_SHARED_LIBRARIES := \
         libc \
         libdl
 
-LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
 
 LOCAL_MODULE_TAGS := optional
 
